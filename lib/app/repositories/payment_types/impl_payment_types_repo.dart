@@ -16,10 +16,9 @@ class PaymentTypesRepoImpl implements PaymentTypesRepo {
   Future<List<PaymentTypesModel>> getAllTypes() async {
     try {
       final result = await dio.auth().get('/payment-types');
-      final resultData = result.data
+      return result.data
           .map<PaymentTypesModel>((p) => PaymentTypesModel.fromMap(p))
           .toList();
-      return resultData;
     } on DioError catch (e, s) {
       log('Erro ao buscar formas de pagamento', error: e, stackTrace: s);
       throw RepositoryException(message: "Erro ao buscar formas de pagamento");
